@@ -14,7 +14,7 @@ describe('ParseDataTask', function() {
 			warnOnUnregistered: false
 		});
 
-		dataParse = require('../lib/ParseDataTask');
+		dataParse = require('../lib/parseDataTask');
 	});
 
 	after(function() {
