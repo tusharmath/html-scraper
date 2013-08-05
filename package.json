@@ -24,7 +24,7 @@
     "grunt-contrib-watch": "~0.5.0",
     "mocha": "1.12.x",
     "should": "1.2.x",
-    "mockery": "0.10.x",
+    "mockery": "1.4.x",
     "grunt-release": "0.3.x"
   },
   "dependencies": {
