@@ -1,26 +1,12 @@
-# html-scraper [![Build Status](https://secure.travis-ci.org/tusharmath@gmail.com/html-scraper.png?branch=master)](http://travis-ci.org/tusharmath@gmail.com/html-scraper)
+# html-scraper [![Build Status](https://secure.travis-ci.org/tusharmath/html-scraper.png?branch=master)](http://travis-ci.org/tusharmath/html-scraper)
 
-The best module ever.
+This is a very simple html-scrapper. It basically helps in scraping out data from html pages. It is not loaded with features but still you you would like to have any more features then you should let me know through the issues page.
 
 ## Getting Started
 Install the module with: `npm install html-scraper`
 
-```javascript
-var html-scraper = require('html-scraper');
-html-scraper.awesome(); // "awesome"
-```
+##Documentation
+*coming soon*
 
-## Documentation
-_(Coming soon)_
 
-## Examples
-_(Coming soon)_
-
-## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
-
-## Release History
-_(Nothing yet)_
-
-## License
-Copyright (c) 2013 Tushar Mathur. Licensed under the MIT license.
+Checkout the [example](https://github.com/tusharmath/html-scraper/blob/master/example/example.js) to know more about how to use this library.
