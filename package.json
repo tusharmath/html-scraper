@@ -1,35 +1,37 @@
 {
-	"name": "html-scraper",
-	"version": "0.0.3",
-	"description": "The best module ever.",
-	"homepage": "https://github.com/tusharmath/html-scraper",
-	"bugs": "https://github.com/tusharmath/html-scraper/issues",
-	"author": {
-		"name": "Tushar Mathur",
-		"email": "tusharmath@gmail.com",
-		"url": "http://tusharm.com"
-	},
-	"scripts": {
-		"test": "./node_modules/.bin/mocha test/test.*"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/tusharmath/html-scraper"
-	},
-	"licenses": [{
-		"type": "MIT"
-	}],
-	"devDependencies": {
-		"grunt-contrib-jshint": "~0.6.0",
-		"grunt-contrib-nodeunit": "~0.2.0",
-		"grunt-contrib-watch": "~0.5.0",
-		"mocha": "1.12.x",
-		"should": "1.2.x",
-		"mockery": "1.4.x",
-		"grunt-release": "0.3.x"
-	},
-	"dependencies": {
-		"underscore": "*",
-		"async": "*"
-	}
+  "name": "html-scraper",
+  "version": "0.0.4",
+  "description": "The best module ever.",
+  "homepage": "https://github.com/tusharmath/html-scraper",
+  "bugs": "https://github.com/tusharmath/html-scraper/issues",
+  "author": {
+    "name": "Tushar Mathur",
+    "email": "tusharmath@gmail.com",
+    "url": "http://tusharm.com"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha test/test.*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tusharmath/html-scraper"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ],
+  "devDependencies": {
+    "grunt-contrib-jshint": "~0.6.0",
+    "grunt-contrib-nodeunit": "~0.2.0",
+    "grunt-contrib-watch": "~0.5.0",
+    "mocha": "1.12.x",
+    "should": "1.2.x",
+    "mockery": "1.4.x",
+    "grunt-release": "0.3.x"
+  },
+  "dependencies": {
+    "underscore": "*",
+    "async": "*"
+  }
 }
