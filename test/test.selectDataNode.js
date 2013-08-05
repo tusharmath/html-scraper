@@ -22,8 +22,7 @@ describe('SelectDataNodeTask', function() {
 
 	it('should select data node', function() {
 		var callback = function(err, result) {
-
-			result.should.equal(3);
+			result.should.eql([3]);
 		};
 		u.executor(selectDataNode)(callback, 'AA BB CC DD', {
 			'BB': {

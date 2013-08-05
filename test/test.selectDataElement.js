@@ -21,18 +21,15 @@ describe('SelectDataElementTask', function() {
 
 	it('should select data elements', function() {
 		var callback = function(err, result) {
-
 			result.should.eql([{
-							'k1': 4,
-							'k2': 2
-						}]);
+				'k1': [4],
+				'k2': 2
+			}]);
 		};
 		u.executor(dataParse)(callback, ['AABBCCDD'], {
 			'x': {
-
-				'k1': 'CC',
+				'k1': ['CC'],
 				'k2': 'BB'
-
 			}
 		});
 

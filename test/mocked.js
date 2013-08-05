@@ -2,7 +2,7 @@ var mockery = require('mockery');
 mockery.registerMock('jQuery', function(document) {
 	return {
 		find: function(selector) {
-			return document.indexOf(selector);
+			return [document.indexOf(selector)];
 		},
 		text: function() {
 			return '  XX    XX    XXXX X XXXXXXX   ';
