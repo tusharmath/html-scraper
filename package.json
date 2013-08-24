@@ -9,6 +9,7 @@
     "email": "tusharmath@gmail.com",
     "url": "http://tusharm.com"
   },
+  "main": "lib/taskExecuter",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha test/test.*"
   },
@@ -32,6 +33,7 @@
   },
   "dependencies": {
     "underscore": "*",
-    "async": "*"
+    "async": "*",
+	"jquery": "*"
   }
 }
