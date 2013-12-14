@@ -1,5 +1,5 @@
 should = require 'should'
-{ExecutorFactory} = require '../src/Executables'
+ExecutorFactory= require '../src/ExecutorFactory'
 describe "ExecutorFactory", ->
 	class alpha
 		constructor: (@args) -> 
