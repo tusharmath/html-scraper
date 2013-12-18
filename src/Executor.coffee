@@ -1,30 +1,25 @@
 class Executor
-	constructor :(@executorFactory)-> @executionChain = []
-	register :(name, args) -> @executionChain.push {name, args}
+	constructor :(@executorFactory, @executionTree) ->
 	
-	#Creates an object from the execution chain
-	createObject: (index)->
-		_exec = @executionChain[index]
-		return @executorFactory.create _exec.name, _exec.args
-
-
-
 	execute : (onComplete) ->
 
+		executor = (node, pipe) =>
 
-		executor = (i, pipedData) =>
-			#Create an executable
-			executable = @createObject i
+			#Iterate through all links
+			node.links.forEach (link) =>
 
-			#Execute the executable, piping response
-			executable.execute pipedData, (executionResponse) => 
+				#Create an executable
+				executable = 
+					@executorFactory.create link.name, link.args
 
-				if i + 1 is @executionChain.length
-					#Completed execution
-					onComplete(executionResponse)
-				else
-					#Execution next in the chain
-					executor(i+1, executionResponse)
-		executor 0
+				#Execute
+				executable.execute pipe, (response) ->
+					if link.links.length >= 1
+						executor link, response
+					else onComplete response
+
+
+		executor @executionTree
+
 
 module.exports = Executor

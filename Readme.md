@@ -3,6 +3,9 @@
 ###
 
 
+
+
+
 	scraper = new Scraper(new Executor)
 	scraper('url')
 		#Piped url as param

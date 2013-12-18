@@ -1,7 +1,7 @@
 mockery = require 'mockery'
 
 cheerio = 
-	load : -> 'cheerio-loaded'
+	load : -> -> 'cheerio-loaded'
 
 dataPipe = 
 	getTransientData : -> ['transient-data']

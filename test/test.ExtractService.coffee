@@ -27,7 +27,7 @@ describe "ExtractService", ->
 		DataPipe = require 'mocked-dataPipe'
 		e = new ExtractService 'doobie', (cheerio, persistentData)-> 
 
-			cheerio.should.equal 'cheerio-loaded'
+			cheerio().should.equal 'cheerio-loaded'
 			persistentData.should.equal 'persistent-data'
 			done()
 			

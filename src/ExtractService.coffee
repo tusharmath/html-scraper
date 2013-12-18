@@ -1,12 +1,12 @@
-{IExecutableService} = require './Executables'
+IExecutable = require './IExecutable'
 cheerio = require 'cheerio'
 
-class ExtractService extends IExecutableService
+class ExtractService extends IExecutable
 	constructor: (name, extractFunction) ->
 		
 
 		@run = (callback, pipedData) ->
-			#Iterate over elements
+			#Iterate over elements selected [Select Service returns Array]
 			for e in pipedData.getTransientData()
 				
 				#Load Cheerio

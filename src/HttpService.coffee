@@ -1,20 +1,20 @@
-{IExecutableService} = require './Executables'
+IExecutable = require './IExecutable'
 request = require 'request'
 
 #Makes Get requests only
-class HttpService extends IExecutableService
+class HttpService extends IExecutable
 	constructor: (key) ->
 		
-		@run = (callback, pipedData) ->
+		@run = (callback, pipe) ->
 			#Url  received from extractService
-			item = pipedData.getTransientData()[key]
-			urls = if typeof item is 'string' then [item] else item
-			for url in urls
-				request url, (error, response, body) ->
-					#Log error
-					console.error error if error
-					
-					#Pipe response
-					callback pipedData.newPipeData [body]
 
-module.exports = ExtractService
+			url = pipe.getTransientData()[key]
+			#!url can not be of an array type. has to be a string!
+			request url, (error, response, body) ->
+				#Log error
+				console.error error if error
+				
+				#Pipe response
+				callback pipe.newPipeData [body]
+
+module.exports = HttpService
