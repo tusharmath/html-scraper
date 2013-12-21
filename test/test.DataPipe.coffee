@@ -2,6 +2,16 @@ should = require 'should'
 DataPipe = require '../src/DataPipe'
 describe "DataPipe", ->
 	
+	it 'should return complete object if not name is passed', ->
+		d = new DataPipe
+		d.addPersistentData 'gobi', 'sample-data'
+		d.getPersistentData().should.be.eql 'gobi': ['sample-data']
+
+	it 'should save content as array', ->
+		d = new DataPipe
+		d.addPersistentData 'allu'
+		d.getPersistentData('allu').should.be.an.instanceof Array
+
 	it 'should save transient data', ->
 		d = new DataPipe 'transient-data'
 		d.getTransientData().should.equal 'transient-data'
@@ -13,11 +23,11 @@ describe "DataPipe", ->
 		d1 = d.newPipeData 'transient-data'
 
 		d1.should.be.an.instanceOf DataPipe
-		(d1.getPersistentData 'persistent-data-1').should.equal 'xxx'
+		(d1.getPersistentData 'persistent-data-1').should.eql ['xxx']
 		
 
 	it 'should add Extractions', ->
 		d = new DataPipe
-		obj = {}
+		obj = {x:1}
 		d.addPersistentData 'alpha', obj
-		(d.getPersistentData 'alpha').should.equal obj
+		d.getPersistentData('alpha').should.eql [obj]

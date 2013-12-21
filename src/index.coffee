@@ -7,32 +7,21 @@ ExecutorFactory = require './ExecutorFactory'
 
 #Include Services
 executables =
-	'select' : require './SelectService'
+	'split' : require './SplitService'
 	'extract' : require './ExtractService'
 	'http' : require './HttpService'
 
 
 class Scraper
-	constructor: (data) ->
+	constructor: (@startup) ->
 		#Create an exection tree
 		@chain = new ExecutionTree
-		@chain.setup ['http', 'select', 'extract']
+		@chain.setup ['http', 'split', 'extract']
 
 	execute: (callback) ->
-
+		pipe = new Pipe @startup
 		fac = new ExecutorFactory executables
-		exe = new Executor fac, @chain
+		exe = new Executor fac, @chain, pipe
 		exe.execute callback
 
 module.exports = Scraper
-
-#Sample Usage
-$ = new Scraper url: 'http://http://tusharm.com/'
-
-
-$.chain
-.http('url')
-.select('.intro')
-.extract('titles', (doc)-> console.log doc)
-
-$.execute (result) -> console.log result

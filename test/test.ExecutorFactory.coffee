@@ -2,7 +2,7 @@ should = require 'should'
 ExecutorFactory= require '../src/ExecutorFactory'
 describe "ExecutorFactory", ->
 	class alpha
-		constructor: (@args) -> 
+		constructor: (@arg1, @arg2) -> 
 	
 	class beta
 	
@@ -16,10 +16,11 @@ describe "ExecutorFactory", ->
 
 	it "should set constructor arguments", ->
 		e = new ExecutorFactory {alpha, beta}
-		args = a:1, b:2
+		args = [{a:1}, {b:2}]
 		result = e.create('alpha', args)
-		result.args.a.should.equal 1
-		result.args.b.should.equal 2
+		
+		result.arg1.a.should.equal 1
+		result.arg2.b.should.equal 2
 
 	###
 	No need to inject, will use mockery

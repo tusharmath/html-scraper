@@ -2,12 +2,13 @@ IExecutable = require './IExecutable'
 cheerio = require 'cheerio'
 
 #Makes Get requests only
-class SelectService extends IExecutable
+class SplitService extends IExecutable
 	constructor: (cssSelector) ->
-		@run = (callback, newPipeData) ->
+		@run = (callback, pipe) ->
+
 			#Url  received from extractService
 			doc = pipe.getTransientData()
-			$ = cheerio.load doc
-			callback pipe.newPipeData $ cssSelector
+			$ = cheerio doc
+			callback pipe.newPipeData $.find cssSelector
 
-module.exports = SelectService
+module.exports = SplitService

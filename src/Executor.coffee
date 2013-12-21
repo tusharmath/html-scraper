@@ -1,25 +1,37 @@
 class Executor
-	constructor :(@executorFactory, @executionTree) ->
+	constructor :(@executorFactory, @executionTree, @pipe) ->
+		@count = 0
 	
-	execute : (onComplete) ->
+	_incrementCount: -> @count++
 
-		executor = (node, pipe) =>
+	_decrementCount: -> @count--
 
-			#Iterate through all links
-			node.links.forEach (link) =>
+	#Gets and executable from factory
+	_getExecutable:(link, executorFactory) ->
+		executorFactory.create link.name, link.args
 
-				#Create an executable
-				executable = 
-					@executorFactory.create link.name, link.args
+	
+	_executeLink: (executable, pipe, link) ->
+		executable.execute pipe, (response) =>
+			if link.links.length >= 1
+				@_executor link, response
+			else if @count is 0
+				@onComplete response.getPersistentData()
+			@_decrementCount()
 
-				#Execute
-				executable.execute pipe, (response) ->
-					if link.links.length >= 1
-						executor link, response
-					else onComplete response
+	_executor : (node, pipe) =>
+		@_incrementCount()
+		
+		#Iterate through all links
+		node.links.forEach (link) =>
 
+			#Create an executable
+			executable = @_getExecutable link, @executorFactory
 
-		executor @executionTree
-
+			#Execute
+			@_executeLink executable, pipe, link
+		
+	execute : (@onComplete) ->
+		@_executor @executionTree, @pipe
 
 module.exports = Executor

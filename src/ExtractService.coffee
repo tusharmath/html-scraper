@@ -1,25 +1,33 @@
 IExecutable = require './IExecutable'
-cheerio = require 'cheerio'
+$ = require 'cheerio'
 
 class ExtractService extends IExecutable
-	constructor: (name, extractFunction) ->
+	constructor: (@name, @extractFunction) ->
 		
+	_createPipe: (pipe, response, callback)->
+		callback pipe.newPipeData response
+		
+	_addPersistentData: (name, pipe , response) ->
+		pipe.addPersistentData name, response
+	
+	_extract: (pipe, e) ->
 
-		@run = (callback, pipedData) ->
-			#Iterate over elements selected [Select Service returns Array]
-			for e in pipedData.getTransientData()
-				
-				#Load Cheerio
-				c = cheerio.load e
+		@extractFunction $(e), pipe.getPersistentData()
 
-				#Parse using Cheerio and persistent data
-				result =  extractFunction c, pipedData.getPersistentData()
+	_run : (e, pipe, callback) ->
 
-				#Add result to persistentData
-				pipedData.addPersistentData name, result
+		#Parse using Cheerio and persistent data
+		result = @_extract pipe, e
 
-				#Create a new Pipe with transient data
-				callback pipedData.newPipeData result
+		#Add result to persistentData
+		@_addPersistentData @name, pipe, result
+
+		#Create a new Pipe with transient data
+		@_createPipe pipe, result, callback
 
 
+	run : (callback, pipe) ->
+		#Iterate over elements selected [Select Service returns Array]
+		@_run e, pipe, callback for e in pipe.getTransientData()
+			
 module.exports = ExtractService

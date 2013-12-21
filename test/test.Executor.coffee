@@ -19,19 +19,16 @@ describe "Executor", ->
 				]
 			]
 		]
-	
-	it 'should execute & pipe all links', (done)->
-		_factory = create : (name) ->
-			execute: (pipe, callback) ->
-				callback  (pipe or '') + name + '-executed-'
-		str = []
-		e = new Executor _factory, _executionTree
-		e.execute (response) ->
-			str.push response
-			if str.length is 3
-				str.should.eql [
-					'first-executed-'
-					'second-executed-third-executed-xx-executed-'
-					'second-executed-third-executed-yy-executed-']
-				done()
 
+	it 'should execute link', (done)->
+		pipe = {}
+		link = name: 'sample-link-name', links: []
+		executable =
+			execute: (pipe, callback)->
+				response = getPersistentData: -> 'i-am-executed'
+				callback response
+		e = new Executor 
+		e.onComplete = (response)-> 
+			response.should.equal 'i-am-executed'
+			done()
+		e._executeLink executable, null, link

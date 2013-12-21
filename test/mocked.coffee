@@ -1,7 +1,11 @@
 mockery = require 'mockery'
 
-cheerio = 
-	load : -> -> 'cheerio-loaded'
+cheerio = (content)-> content + '-from-cheerio'
+cheerio.load = -> -> 'cheerio-loaded'
+
+request = (url, callback) ->
+	callback undefined, undefined, require('./sampleHttpResponse.json').data
+
 
 dataPipe = 
 	getTransientData : -> ['transient-data']
@@ -11,5 +15,6 @@ dataPipe =
 
 mockery.registerMock 'cheerio', cheerio
 mockery.registerMock 'mocked-dataPipe', dataPipe
+mockery.registerMock 'request', request
 
 module.exports = mockery

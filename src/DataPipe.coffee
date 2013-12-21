@@ -6,10 +6,18 @@ class DataPipe
 		@getTransientData = -> _private.transientData
 		
 		@addPersistentData = (name, data) ->
-			_private.persistentData[name] = data
+			if not _private.persistentData[name]
+				_private.persistentData[name] = []
+			_private.persistentData[name].push data
+
+		@clearPersistentData = (name)->
+			_private.persistentData[name] = []
 		
 		@getPersistentData = (name) ->
-			_private.persistentData[name]
+			if name
+				return _private.persistentData[name]
+			else	
+				_private.persistentData
 		
 		@newPipeData = (transientData)-> 
 			new DataPipe transientData, _private.persistentData

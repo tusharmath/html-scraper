@@ -1,9 +1,9 @@
 mockery = require './mocked'
 should = require 'should'
-SelectService = require '../src/SelectService'
+SplitService = require '../src/SplitService'
 cheerio = {}
 
-describe 'SelectService', ->
+describe 'SplitService', ->
 		
 	before ->
 		mockery.enable
@@ -14,3 +14,12 @@ describe 'SelectService', ->
 	
 	after ->
 		mockery.disable()
+
+	it 'should run', (done)->
+		s = new SplitService 'xxx'
+		pipe =
+			getTransientData: ->
+			newPipeData: -> 'new-pipe'
+		s.execute pipe, (result) ->
+			result.should.equal 'new-pipe'
+			done()
