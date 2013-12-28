@@ -8,7 +8,7 @@ class HttpService extends IExecutable
 		@run = (callback, pipe) ->
 			#Url  received from extractService
 			url = pipe.getTransientData()[key]
-			console.log 'GET:', url
+			#console.log 'GET:', url
 			#!url can not be of an array type. has to be a string!
 			request url, (error, response, body) ->
 				#Log error

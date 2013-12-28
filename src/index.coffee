@@ -5,7 +5,7 @@ Executor = require './Executor'
 Pipe = require './DataPipe'
 ExecutorFactory = require './ExecutorFactory'
 
-#Include Services
+#Build Services Map
 executables =
 	'split' : require './SplitService'
 	'extract' : require './ExtractService'
@@ -20,8 +20,14 @@ class Scraper
 
 	execute: (callback) ->
 		pipe = new Pipe @startup
+
+		#Initialize an Executor
 		fac = new ExecutorFactory executables
+
+		#Initialize Executor
 		exe = new Executor fac, @chain, pipe
+
+		#Execute the tree
 		exe.execute callback
 
 module.exports = Scraper

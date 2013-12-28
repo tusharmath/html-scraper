@@ -1,7 +1,11 @@
+class NoData
 class DataPipe
-	constructor : (transientData = {}, persistentData = {})->
+
+	constructor : (transientData = new NoData, persistentData={})->
 		
 		_private =  {persistentData, transientData}
+		
+		@hasData = -> not (_private.transientData instanceof NoData)
 
 		@getTransientData = -> _private.transientData
 		

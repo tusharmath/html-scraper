@@ -1,7 +1,15 @@
 should = require 'should'
 DataPipe = require '../src/DataPipe'
 describe "DataPipe", ->
-	
+
+	it 'should add nodata', ->
+		d = new DataPipe
+		d.hasData().should.be.false
+
+	it 'should add data', ->
+		d = new DataPipe 43
+		d.hasData().should.be.true
+
 	it 'should return complete object if not name is passed', ->
 		d = new DataPipe
 		d.addPersistentData 'gobi', 'sample-data'

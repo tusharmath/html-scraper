@@ -13,10 +13,12 @@ class Executor
 	
 	_executeLink: (executable, pipe, link) ->
 		executable.execute pipe, (response) =>
-			if link.links.length >= 1
-				@_executor link, response
-			else if @count is 0
-				@onComplete response.getPersistentData()
+			#Skip the execution if there is no response
+			if response.hasData() is true
+				if link.links.length >= 1
+					@_executor link, response
+				else if @count is 0
+					@onComplete response.getPersistentData()
 			@_decrementCount()
 
 	_executor : (node, pipe) =>
