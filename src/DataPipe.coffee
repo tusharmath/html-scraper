@@ -1,30 +1,30 @@
-class NoData
+__no_data__ = {}
 class DataPipe
 
-	constructor : (transientData = new NoData, persistentData={})->
+	constructor : (@transientData = __no_data__, @persistentData={})->
 		
-		_private =  {persistentData, transientData}
 		
-		@hasData = -> not (_private.transientData instanceof NoData)
+	hasData : -> not (@transientData is __no_data__)
 
-		@getTransientData = -> _private.transientData
+	getTransientData : -> @transientData
+	#addTransientData : -> 
 		
-		@addPersistentData = (name, data) ->
-			if not _private.persistentData[name]
-				_private.persistentData[name] = []
-			_private.persistentData[name].push data
+	addPersistentData : (name, data) ->
+			if not @persistentData[name]
+				@persistentData[name] = []
+			@persistentData[name].push data
 
-		@clearPersistentData = (name)->
-			_private.persistentData[name] = []
+	clearPersistentData : (name)->
+			@persistentData[name] = []
 		
-		@getPersistentData = (name) ->
+	getPersistentData : (name) ->
 			if name
-				return _private.persistentData[name]
+				return @persistentData[name]
 			else	
-				_private.persistentData
+				@persistentData
 		
-		@newPipeData = (transientData)-> 
-			new DataPipe transientData, _private.persistentData
+	create : (transientData)->
+			new DataPipe transientData, @persistentData
 
 	
 module.exports = DataPipe

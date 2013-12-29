@@ -28,7 +28,7 @@ describe "DataPipe", ->
 		d = new DataPipe
 		d.addPersistentData 'persistent-data-1', 'xxx'
 		d.addPersistentData 'persistent-data-2', {}
-		d1 = d.newPipeData 'transient-data'
+		d1 = d.create 'transient-data'
 
 		d1.should.be.an.instanceOf DataPipe
 		(d1.getPersistentData 'persistent-data-1').should.eql ['xxx']

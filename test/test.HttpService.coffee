@@ -16,7 +16,7 @@ describe "HttpService", ->
 		http = new HttpService 'url'
 		pipe =
 			getTransientData: -> {}
-			newPipeData: (data) -> data
+			create: (data) -> data
 
 
 		http.execute pipe, (response)->

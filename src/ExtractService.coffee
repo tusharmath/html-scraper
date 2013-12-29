@@ -5,7 +5,7 @@ class ExtractService extends IExecutable
 	constructor: (@name, @extractFunction) ->
 		
 	_createPipe: (pipe, response, callback)->
-		callback pipe.newPipeData response
+		callback pipe.create response
 		
 	_addPersistentData: (name, pipe , response) ->
 		pipe.addPersistentData name, response

@@ -26,7 +26,7 @@ describe "ExtractService", ->
 
 	it 'should create new transient data', (done)->
 		pipe =
-			newPipeData : (data) -> data
+			create : (data) -> data
 		e = new ExtractService 'delta', ->
 		e._createPipe pipe, 'sample-data', (data) ->
 			data.should.equal 'sample-data'

@@ -9,6 +9,6 @@ class SplitService extends IExecutable
 			#Url  received from extractService
 			doc = pipe.getTransientData()
 			$ = cheerio doc
-			callback pipe.newPipeData $.find cssSelector
+			callback pipe.create $.find cssSelector
 
 module.exports = SplitService

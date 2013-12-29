@@ -16,6 +16,6 @@ class HttpService extends IExecutable
 				
 				#Pipe response
 				#WHy Array?
-				callback pipe.newPipeData body
+				callback pipe.create body
 
 module.exports = HttpService

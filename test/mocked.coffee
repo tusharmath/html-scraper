@@ -11,7 +11,7 @@ dataPipe =
 	getTransientData : -> ['transient-data']
 	addPersistentData: ->
 	getPersistentData: -> 'persistent-data'
-	newPipeData: (x)-> x
+	create: (x)-> x
 
 mockery.registerMock 'cheerio', cheerio
 mockery.registerMock 'mocked-dataPipe', dataPipe

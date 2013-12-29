@@ -19,7 +19,7 @@ describe 'SplitService', ->
 		s = new SplitService 'xxx'
 		pipe =
 			getTransientData: ->
-			newPipeData: -> 'new-pipe'
+			create: -> 'new-pipe'
 		s.execute pipe, (result) ->
 			result.should.equal 'new-pipe'
 			done()
