@@ -1,13 +1,15 @@
 __no_data__ = {}
 class DataPipe
 
-	constructor : (@transientData = __no_data__, @persistentData={})->
-		
+	constructor : (@persistentData={}) ->
+		@transientData = __no_data__
 		
 	hasData : -> not (@transientData is __no_data__)
 
 	getTransientData : -> @transientData
-	#addTransientData : -> 
+	addTransientData : (transientData)->
+		@transientData = [] if @transientData is __no_data__
+		@transientData.push transientData
 		
 	addPersistentData : (name, data) ->
 			if not @persistentData[name]
@@ -23,8 +25,7 @@ class DataPipe
 			else	
 				@persistentData
 		
-	create : (transientData)->
-			new DataPipe transientData, @persistentData
+	create : ()->
+			new DataPipe @persistentData
 
-	
 module.exports = DataPipe
