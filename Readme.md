@@ -1,23 +1,42 @@
-###
-	chain - Http, Select, Extract, Http
-###
+#HTML Scraper
+The scraper has **three** components: `http` → `split` → `extract`, executed in the same order. You make an `http` request to fetch a page, `split` the page into different sections and ultimately `extract` the data from each section using a custom parser.
+
+The best part about this scraper is that you can create a chain of actions that you need to perform.
+
+###Order of execution
+`http` → `split` → `extract` → `http` → `split` and so on…
+
+###Example
+Say I  want extract al the information of students who got admitted to the University of Southern California, Los Angeles. I would do it as follows —
+
+1. Make an http request to this page —
+	[http://edulix.com/universityfinder/university_of_southern_california](http://edulix.com/universityfinder/university_of_southern_california). 
+2. Page consists of multiple anchor tags containing links of each
 
 
 
 
 
-	scraper = new Scraper(new Executor)
-	scraper('url')
-		#Piped url as param
-		.http() #Document containing a table of fav movies
-		.select 'div.movies'
-		.extract 'user-data', ($) -> #DOCUMENT is piped
-			'key-1': $('cssSelector_1').attr 'data-bind'
-			'key-2': $('cssSelector_2').attr 'href'
-			'key-3': $('cssSelector_3').val()
-		.http 'key-2'
-		.select 'body'
-		.extract 'output-data', ($, data) ->
-			'key-a': $('cssSelector_a').attr 'data-bind'
-			'key-b': data['key-1']
-		.execute 
+```coffeescript
+	
+	#Pass the url to the initialiser
+	$ = new Scraper url: 'http://tusharm.com'
+	
+	
+	#All the methods are available in the chain object
+	$.chain
+	.http('url') #Pass
+	.split('.intro')
+	.extract('titles', (doc)->
+		anchor = doc.find '.intro h2 a'
+		href: 'http://tusharm.com' + anchor.attr('href')
+		title: anchor.text()
+	).http('href')
+	.split('body')
+	.extract('content', (doc)->
+		data: doc.find('p').text()
+		)
+	
+	
+	$.execute (result) -> console.log result
+```

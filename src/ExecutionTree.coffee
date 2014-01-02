@@ -9,9 +9,9 @@ class ExecutionTree
 		methods.forEach (name)=>
 			@[name] = () =>
 				node = new ExecutionTree name, arguments
+				#Re setup all methods
 				node.setup methods
 				@links.push node
 				node
-
 
 module.exports = ExecutionTree

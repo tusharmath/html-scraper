@@ -1,12 +1,16 @@
 #Creates objects using execution factory in the tree
 class TreeFactory
-	constructor: (@executionFactory) ->
+	constructor: (@executables) ->
 
-	_getExecutable:(node, executionFactory) ->
-		executionFactory.create node.name, node.args
+	_getExecutable:(name, args) ->
+		funct = ->
+		funct::= @executables[name] ::
+		obj = new funct
+		@executables[name].apply obj, args	
+		obj
 
 	_setup: (node) ->
-		node.obj = @_getExecutable node, @executionFactory
+		node.obj = @_getExecutable node.name, node.args
 		@_setup link for link in node.links
 
 	setup: (executionTree) ->

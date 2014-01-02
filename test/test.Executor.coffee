@@ -34,7 +34,7 @@ describe "Executor", ->
 		called.should.equal 0
 		e.count.should.equal -1
 
-
+	
 	it 'should execute link', (done)->
 		pipe = {}
 		link = name: 'sample-link-name', links: []

@@ -6,16 +6,9 @@ describe "DataPipe", ->
 		d = new DataPipe
 		d.hasData().should.be.false
 
-	it 'should save transient data as array', ->
-		d = new DataPipe
-		d.addTransientData 'qwerty'
-		d.getTransientData().should.be.an.instanceof Array
-
 	it 'should add data', ->
-		d = new DataPipe
-		d.addTransientData 43
+		d = new DataPipe 43
 		d.hasData().should.be.true
-
 
 	it 'should return complete object if not name is passed', ->
 		d = new DataPipe
@@ -28,9 +21,8 @@ describe "DataPipe", ->
 		d.getPersistentData('allu').should.be.an.instanceof Array
 
 	it 'should save transient data', ->
-		d = new DataPipe
-		d.addTransientData 'transient-data'
-		d.getTransientData()[0].should.equal 'transient-data'
+		d = new DataPipe 'transient-data'
+		d.getTransientData().should.equal 'transient-data'
 
 	it 'should persist data', ->
 		d = new DataPipe

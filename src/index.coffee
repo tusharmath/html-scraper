@@ -10,24 +10,24 @@ executables =
 	'split' : require './SplitService'
 	'extract' : require './ExtractService'
 	'http' : require './HttpService'
-
+	'stop' :  require './ExecutionStopper'
 
 class Scraper
 	constructor: (@startup) ->
 		#Create an exection tree
-		@chain = new ExecutionTree
-		@chain.setup ['http', 'split', 'extract']
+		@start = new ExecutionTree
+		@start.setup ['http', 'split', 'extract', 'stop']
 
 	execute: (callback) ->
 		pipe = new Pipe @startup
-
+	
 		#Initialize an Executor
 		fac = new ExecutorFactory executables
 
 		#Initialize Executor
-		exe = new Executor fac, @chain, pipe
+		exe = new Executor fac, @start, pipe
 
 		#Execute the tree
-		exe.execute callback
+		exe.execute()
 
 module.exports = Scraper
