@@ -7,12 +7,6 @@ The best part about this scraper is that you can create a chain of actions that 
 `http` → `split` → `extract` → `http` → `split` and so on…
 
 ###Example
-Say I  want extract al the information of students who got admitted to the University of Southern California, Los Angeles. I would do it as follows —
-
-1. Make an http request to this page —
-	[http://edulix.com/universityfinder/university_of_southern_california](http://edulix.com/universityfinder/university_of_southern_california). 
-2. Page consists of multiple anchor tags containing links of each
-
 
 
 
