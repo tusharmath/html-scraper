@@ -27,8 +27,10 @@ class TreeFactory
 			@_addParent link, node
 			@_setup link
 		
-
+	_setupRoot: (root)->
+		root._bucket = @bucketFactory.global()
 	setup: (executionTree) ->
+		@_setupRoot executionTree
 		@_setup executionTree
 		@count
 

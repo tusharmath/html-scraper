@@ -40,6 +40,7 @@ describe "TreeFactory", ->
 		referenceCount = 0
 		bucketFactory =
 			create: ->
+			global: ->	
 		treeFactory = new TreeFactory {alpha, beta}, bucketFactory
 
 		#Mocking GetExecutable
@@ -59,3 +60,11 @@ describe "TreeFactory", ->
 		
 		result.arg1.a.should.equal 1
 		result.arg2.b.should.equal 2
+
+	it 'should set bucket for root as global', ->
+		bucketFactory = global: -> 'sample-bucket'
+		node = {}
+		e = new TreeFactory {alpha, beta}, bucketFactory
+		e._setupRoot node
+		node._bucket.should.equal 'sample-bucket'
+		
