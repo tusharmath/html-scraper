@@ -1,5 +1,5 @@
 mockery = require './mocked'
-should = require 'should'
+
 ExtractService = {}
 
 describe "ExtractService", ->

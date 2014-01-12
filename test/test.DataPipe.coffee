@@ -1,4 +1,4 @@
-should = require 'should'
+
 DataPipe = require '../src/DataPipe'
 describe "DataPipe", ->
 

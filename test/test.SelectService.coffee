@@ -1,5 +1,5 @@
 mockery = require './mocked'
-should = require 'should'
+
 SplitService = require '../src/SplitService'
 cheerio = {}
 

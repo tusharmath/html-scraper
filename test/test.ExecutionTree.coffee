@@ -1,4 +1,4 @@
-should = require 'should'
+
 ExecutionTree = require '../src/ExecutionTree'
 describe "ExecutionTree", ->
 

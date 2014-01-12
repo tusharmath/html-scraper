@@ -1,27 +1,24 @@
-should = require 'should'
+
 Executor = require '../src/Executor'
 describe "Executor", ->
-	### Sample Execution Tree
-	_executionTree =
-		name: '$root'
+
+	root =
 		links: [
-			name: 'first',
-			links: []
-		,	
-			name: 'second',
-			links: [
-				name: 'third',
+			links:[]
+		,
+			links:[
 				links: [
-					name: 'xx'
-					links:[]
+					links: []
 				,
-					name: 'yy'
-					links:[]
+					links: []
 				]
+			,
+				links: []
 			]
 		]
-	###
 
+
+	###
 	it 'should stop on no response', ->
 		pipe = {}
 		link = name: 'sample-link-name', links: []
@@ -33,7 +30,21 @@ describe "Executor", ->
 		e._executeLink executable, null, link
 		called.should.equal 0
 		e.count.should.equal -1
+	###
+	it 'should execute each link except $root', ->
 
+		count = 0
+		e = new Executor root
+		
+		#Mocking _executeLink
+		e._executeLink = (pipe, link) ->
+			count++
+			@_executor(link)
+		e.execute()
+			
+		count.should.equal 6
+
+	###
 	
 	it 'should execute link', (done)->
 		pipe = {}
@@ -50,3 +61,4 @@ describe "Executor", ->
 			response.should.equal 'i-am-executed'
 			done()
 		e._executeLink executable, null, link
+	###

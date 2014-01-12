@@ -1,5 +1,5 @@
 require 'coffee-trace'
-should = require 'should'
+
 TreeFactory = require '../src/TreeFactory'
 describe "TreeFactory", ->
 	class alpha
@@ -22,14 +22,25 @@ describe "TreeFactory", ->
 			]
 		]
 
-	it 'should go thru all links',->
+	it 'should add bucket', ->
 		referenceCount = 0
-		treeFactory = new TreeFactory {alpha, beta}
+		bucketFactory = create: -> 'dummy-bucket'
+		treeFactory = new TreeFactory {alpha, beta}, bucketFactory
+		link = {}
+		treeFactory._addBucket link
+		link.bucket.should.equal 'dummy-bucket'
+
+
+
+	it 'should return count',->
+		referenceCount = 0
+		bucketFactory =
+			create: ->
+		treeFactory = new TreeFactory {alpha, beta}, bucketFactory
 
 		#Mocking GetExecutable
 		treeFactory._getExecutable = -> referenceCount++
-		treeFactory.setup root
-		referenceCount.should.equal 7
+		treeFactory.setup(root).should.equal 6
 
 
 	it "should create objects", ->
