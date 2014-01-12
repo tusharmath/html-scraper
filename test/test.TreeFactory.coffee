@@ -40,7 +40,8 @@ describe "TreeFactory", ->
 		referenceCount = 0
 		bucketFactory =
 			create: ->
-			global: ->	
+			global: ->
+			setup: ->
 		treeFactory = new TreeFactory {alpha, beta}, bucketFactory
 
 		#Mocking GetExecutable

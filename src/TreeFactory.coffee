@@ -29,7 +29,9 @@ class TreeFactory
 		
 	_setupRoot: (root)->
 		root._bucket = @bucketFactory.global()
+	
 	setup: (executionTree) ->
+		@bucketFactory.setup()
 		@_setupRoot executionTree
 		@_setup executionTree
 		@count
