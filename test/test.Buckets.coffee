@@ -9,7 +9,7 @@ describe "AlterableBucket", ->
 
 	it 'should return empty', ->
 		b = new AlterableBucket
-		b.isEmpty().should.equal true	
+		b.isntEmpty().should.equal false
 	
 
 

@@ -6,7 +6,9 @@ class PersistentBucket
 		@bucketContent[name] = [] if @bucketContent[name] is undefined
 		@bucketContent[name].push data
 	
-	getContent: (name) -> @bucketContent[name]
+	getContent: (name) -> 
+		return @bucketContent[name] if name
+		@bucketContent
 
 #Date gets removed when retrived
 class AlterableBucket
@@ -17,7 +19,7 @@ class AlterableBucket
 	
 	getContent: -> @bucketContent.shift()
 	
-	isEmpty: -> @bucketContent.length is 0
+	isntEmpty: -> @bucketContent.length > 0
 
 #Creates data buckets for nodes
 class BucketFactory
