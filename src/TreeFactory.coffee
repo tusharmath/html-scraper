@@ -10,16 +10,21 @@ class TreeFactory
 		obj
 
 	_addBucket: (link) ->
-		link.bucket = @bucketFactory.create()
+		link._bucket = @bucketFactory.create()
 
 	_addInstance: (link) ->
-		link.instance = @_getExecutable link.name, link.args
+		link._instance = @_getExecutable link.name, link.args
+
+	_addParent: (link, parent) -> link._parent = parent
+
+	_addStatus: (link) -> link._isComplete = false
 
 	_setup: (node) ->
 		@count += node.links.length
 		for link in node.links
 			@_addInstance link
 			@_addBucket link
+			@_addParent link, node
 			@_setup link
 		
 

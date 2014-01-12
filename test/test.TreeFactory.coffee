@@ -22,15 +22,19 @@ describe "TreeFactory", ->
 			]
 		]
 
+
 	it 'should add bucket', ->
-		referenceCount = 0
 		bucketFactory = create: -> 'dummy-bucket'
 		treeFactory = new TreeFactory {alpha, beta}, bucketFactory
 		link = {}
 		treeFactory._addBucket link
-		link.bucket.should.equal 'dummy-bucket'
+		link._bucket.should.equal 'dummy-bucket'
 
-
+	it 'should add parent', ->
+		treeFactory = new TreeFactory 
+		link = {}
+		treeFactory._addParent link, 'sample-parent'
+		link._parent.should.equal 'sample-parent'
 
 	it 'should return count',->
 		referenceCount = 0
