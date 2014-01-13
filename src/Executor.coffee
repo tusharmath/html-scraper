@@ -1,39 +1,62 @@
 class Executor
-	constructor :(@executorFactory, @executionTree, @pipe) ->
-		@count = 0
+	constructor :(@executionTree) ->		
+		@rCount = value: 0		
 	
-	_incrementCount: -> @count++
+	#Checks for a leaf node /TESTED
+	_isntLeaf: (node)-> node.links.length > 0
 
-	_decrementCount: -> @count--
+	#Add to persistent data if req /TESTED
+	_addPersistentData: (data, name) ->
+		@perBucket.addContent name, data if name
 
-	#Gets and executable from factory
-	_getExecutable:(link, executorFactory) ->
-		executorFactory.create link.name, link.args
+	#Add to node's bucket /TESTED
+	_addBucketContent: (node, data) ->
+		node._bucket.addContent data
 
+	#Setting up instead in constructor to have more control /TESTED
+	_setupPersistentBucket: ->
+		@perBucket = @executionTree._bucket
 	
-	_executeLink: (executable, pipe, link) ->
-		executable.execute pipe, (response) =>
-			#Skip the execution if there is no response
-			if response.hasData() is true
-				if link.links.length >= 1
-					@_executor link, response
-				else if @count is 0
-					@onComplete response.getPersistentData()
-			@_decrementCount()
-
-	_executor : (node, pipe) =>
-		@_incrementCount()
+	#Executes a link with params /TESTED
+	_executeLink: (node, content) ->
+		#Execute the node with params
+		node._instance.execute content
 		
-		#Iterate through all links
-		node.links.forEach (link) =>
+	#Default response callback
+	_onResponse: (node, data, persist) ->
+		_addPersistentData data, persist
+		_addBucketContent node, data
 
-			#Create an executable
-			executable = @_getExecutable link, @executorFactory
+	#Sets up the common parameters req by all mods
+	_setupCommonParams: (node) ->
+		node._instance.setup(
+			@rCount,
+			@perBucket,
+			(d,n)=> @_onResponse d,n
+		)
 
-			#Execute
-			@_executeLink executable, pipe, link
+	#Recrusively call a method with a base obj
+	_recursiveCall: (node, ref, callback) ->
+		callback.call ref, node
+		for link in node.links
+			@_recursiveCall link, ref, callback
+
+	_executor: (node) ->
+		_recursiveCall node, @, _executeLink 
+		if _isntLeaf node and node._bucket.isntEmpty() 
+			content = node._bucket.getContent()
+			for link in node.links
+				_executeLink link, content
 		
+	#Sets up common params for all nodes
+	_setupCommonParamsForAll: ->
+		@_recursiveCall @executionTree, @, @_setupCommonParams
+
+	#The main method
 	execute : (@onComplete) ->
-		@_executor @executionTree, @pipe
+		_setupPersistentBucket()
+		_setupCommonParamsForAll()
+		_executor @executionTree while rCount.value isnt 0
+	
 
 module.exports = Executor

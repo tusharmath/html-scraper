@@ -3,7 +3,7 @@ require ("coffee-trace")
 ExecutionTree = require './ExecutionTree'
 Executor = require './Executor'
 Pipe = require './DataPipe'
-ExecutorFactory = require './ExecutorFactory'
+TreeFactory = require './TreeFactory'
 
 #Build Services Map
 executables =
@@ -21,13 +21,15 @@ class Scraper
 	execute: (callback) ->
 		pipe = new Pipe @startup
 	
-		#Initialize an Executor
-		fac = new ExecutorFactory executables
+		#Initialize Tree Factory & Setup
+		treeFac = new TreeFactory executables
+		nodeCount = treeFac.setup @start
 
 		#Initialize Executor
-		exe = new Executor fac, @start, pipe
+		exe = new Executor @start, pipe
 
 		#Execute the tree
-		exe.execute()
+		exe.execute (response)->
+			callback response if nodeCount-- is 0
 
 module.exports = Scraper

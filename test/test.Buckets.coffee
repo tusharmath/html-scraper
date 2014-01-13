@@ -10,15 +10,12 @@ describe "AlterableBucket", ->
 	it 'should return empty', ->
 		b = new AlterableBucket
 		b.isntEmpty().should.equal false
-	
-
 
 describe "PersistentBucket", ->
 	it 'should add Content with name', ->
 		b = new PersistentBucket;
 		b.addContent 'sample-name', 'sample-data'
 		b.bucketContent['sample-name'].should.be.an.instanceof Array
-
 
 	it 'should save data', ->
 		b = new PersistentBucket;

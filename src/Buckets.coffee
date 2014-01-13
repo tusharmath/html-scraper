@@ -12,8 +12,7 @@ class PersistentBucket
 
 #Date gets removed when retrived
 class AlterableBucket
-	constructor: ->
-		@bucketContent = []
+	constructor: ->	@bucketContent = []
 
 	addContent: (response) -> @bucketContent.push response
 	
@@ -26,6 +25,5 @@ class BucketFactory
 	setup: () -> @globalBucket = new PersistentBucket
 	create : () -> new AlterableBucket
 	global : ->  @globalBucket
-
 
 module.exports = {PersistentBucket, AlterableBucket, BucketFactory}
