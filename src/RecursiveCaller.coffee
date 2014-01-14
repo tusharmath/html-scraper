@@ -4,12 +4,12 @@ class RecursiveCaller
 
 	_recursiveCall: (node) ->
 		@count++
-		@onEach node if @onEach
-		if @onTrue node
+		@onEach.call @ref, node, @args if @onEach
+		if @onTrue.call @ref, node, @args
 			for link in node.links 
 				@_recursiveCall link
 
-	execute: (@onEach, @onTrue = -> true) ->
+	execute: (@ref, @args, @onEach, @onTrue = -> true) ->
 		@_recursiveCall @tree
 		@count
 
