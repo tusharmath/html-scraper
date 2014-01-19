@@ -25,17 +25,3 @@ describe "NodeOperations", ->
 		e.canExecuteChildren(_bucket:isntEmpty: -> false).should.equal false
 		e.isntLeaf = -> false
 		e.canExecuteChildren(_bucket:isntEmpty: -> true).should.equal false
-
-
-	it 'should set executor params', ->
-		n = new NodeOperations
-		node = _instance: setup : (a,b,c)-> {a,b,c}
-		e = {}
-		e.rCount = 'rCount-override'
-		e.perstBucket = 'persistentbucket-override'
-		e._onResponse = -> 'onResponse-override'
-		result = n.setExecutorParams(node, e)
-
-		result.a.should.equal 'rCount-override'
-		result.b.should.equal 'persistentbucket-override'
-		result.c().should.equal 'onResponse-override'

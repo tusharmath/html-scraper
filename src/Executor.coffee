@@ -1,6 +1,6 @@
 class Executor
 	constructor :(@dfs, @tree, @no, @perstBucket) ->		
-		@rCount = value: 0		
+		@rCount = value: 0
 	
 	#Add to persistent data if req /TESTED
 	_addPersistentData: (data, name) ->
@@ -11,6 +11,18 @@ class Executor
 		@_addPersistentData data, persist
 		@no.addBucketContent node, data
 
+
+	_setExecutorParams: (node) ->
+		node._instance.setup(
+			@rCount,
+			@perstBucket,
+			(data,name)=> @_onResponse data, name, node
+		)
+
+
+	setup: ->
+		#TODO: Write a test
+		@dfs.execute @tree, @_setExecutorParams
 
 	_executeLink: (node, content) ->
 		node._instance.execute content

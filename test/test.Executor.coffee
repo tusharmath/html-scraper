@@ -33,3 +33,16 @@ describe "Executor", ->
 		e  = new Executor root
 		e._addPersistentData 'sample-data' #, no-name
 		called.should.equal 0
+
+
+	it 'should set executor params', ->
+		node = _instance: setup : (a,b,c)-> {a,b,c}
+		e = new Executor
+		e.rCount = 'rCount-override'
+		e.perstBucket = 'persistentbucket-override'
+		e._onResponse = -> 'onResponse-override'
+		result = e._setExecutorParams(node, e)
+
+		result.a.should.equal 'rCount-override'
+		result.b.should.equal 'persistentbucket-override'
+		result.c().should.equal 'onResponse-override'
