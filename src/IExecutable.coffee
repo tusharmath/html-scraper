@@ -14,7 +14,4 @@ class IExecutable
 		@running--
 		@totalRunningCount.value--
 
-
-
-
 module.exports = IExecutable

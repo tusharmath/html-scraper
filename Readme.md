@@ -45,5 +45,5 @@ Say I  want extract al the information of students who got admitted to the Unive
 
 #Running tests
 ```sh
-mocha --compilers=coffee:coffee-script --require=should --watch
+mocha --compilers=coffee:coffee-script --require=should --watch --reporter=min
 ```
