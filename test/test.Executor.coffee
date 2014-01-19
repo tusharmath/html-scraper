@@ -23,16 +23,29 @@ describe "Executor", ->
 		e = new Executor
 		e.rCount.value.should.equal(0)
 
-	it 'should set common params', ->
+	it 'should set common params for all', ->
 		recursiveCaller = execute : (x,y) -> y
 		e = new Executor recursiveCaller
 		e._setupCommonParams('aa').should.equal 'aa'
+
+
+	it 'should set rCount, persistent bucket and default callback', ->
+		e = new Executor
+		node = _instance: setup : (a,b,c)-> {a,b,c}
+		e.rCount = 'rCount-override'
+		e.perBucket = 'persistentbucket-override'
+		e._onResponse = -> 'onResponse-override'
+		result = e._commonParams(node)
+		result.a.should.equal 'rCount-override'
+		result.b.should.equal 'persistentbucket-override'
+		result.c().should.equal 'onResponse-override'
+
 
 	it 'should '
 	it 'should update count'
 	it 'should execute all links'
 	it 'should check tree status'
-	it 'should setup'
+
 
 	
 
