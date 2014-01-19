@@ -1,5 +1,5 @@
 class Executor
-	constructor :(@executionTree) ->		
+	constructor :(@bfsEnabled) ->		
 		@rCount = value: 0		
 	
 	#Checks for a leaf node /TESTED
@@ -15,8 +15,35 @@ class Executor
 
 	#Setting up instead in constructor to have more control /TESTED
 	_setupPersistentBucket: ->
-		@perBucket = @executionTree._bucket
+		@perBucket = @bfsEnabled.tree._bucket
 	
+
+	#Sets up the common parameters req by all mods
+	_commonParams: (node) ->
+		node._instance.setup(
+			@rCount,
+			@perBucket,
+			(d,n)=> @_onResponse d,n
+		)
+
+	#Sets up common params for all nodes /tested
+	_setupCommonParams: (commonParams) ->
+		@bfsEnabled.execute @, commonParams
+
+	#Checks if the node's chldren can be executed //tested
+	_canExecuteChildren: (node) ->
+		@_isntLeaf(node) and node._bucket.isntEmpty()
+
+	
+	_executor: (node) ->
+
+		if @_canExecuteChildren (node)
+			content = node._bucket.getContent()
+			@bfsEnabled.execute @, null, (node, content)=>
+				@_executeLink node, content
+			, content
+
+
 	#Executes a link with params /TESTED
 	_executeLink: (node, content) ->
 		#Execute the node with params
@@ -27,36 +54,11 @@ class Executor
 		_addPersistentData data, persist
 		_addBucketContent node, data
 
-	#Sets up the common parameters req by all mods
-	_setupCommonParams: (node) ->
-		node._instance.setup(
-			@rCount,
-			@perBucket,
-			(d,n)=> @_onResponse d,n
-		)
-
-	#Recrusively call a method with a base obj
-	_recursiveCall: (node, ref, callback) ->
-		callback.call ref, node
-		for link in node.links
-			@_recursiveCall link, ref, callback
-
-	_executor: (node) ->
-		_recursiveCall node, @, _executeLink 
-		if _isntLeaf node and node._bucket.isntEmpty() 
-			content = node._bucket.getContent()
-			for link in node.links
-				_executeLink link, content
-		
-	#Sets up common params for all nodes
-	_setupCommonParamsForAll: ->
-		@_recursiveCall @executionTree, @, @_setupCommonParams
-
 	#The main method
 	execute : (@onComplete) ->
 		_setupPersistentBucket()
 		_setupCommonParamsForAll()
-		_executor @executionTree while rCount.value isnt 0
+		_executor @bfsEnabled.tree while rCount.value isnt 0
 	
 
 module.exports = Executor

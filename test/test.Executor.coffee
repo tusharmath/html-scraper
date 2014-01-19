@@ -17,17 +17,33 @@ describe "Executor", ->
 			]
 		]
 
+
+
 	it 'should setup count', ->
 		e = new Executor
-		
 		e.rCount.value.should.equal(0)
 
-	it 'should set common params'
-	it 'should reqcursively call'
+	it 'should set common params', ->
+		recursiveCaller = execute : (x,y) -> y
+		e = new Executor recursiveCaller
+		e._setupCommonParams('aa').should.equal 'aa'
+
+	it 'should '
 	it 'should update count'
 	it 'should execute all links'
 	it 'should check tree status'
 	it 'should setup'
+
+	
+
+	it 'should check if the node can be executed', ->
+		e = new Executor
+		e._isntLeaf = -> true
+		e._canExecuteChildren(_bucket:isntEmpty: -> true).should.equal true
+		e._canExecuteChildren(_bucket:isntEmpty: -> false).should.equal false
+		e._isntLeaf = -> false
+		e._canExecuteChildren(_bucket:isntEmpty: -> true).should.equal false
+
 
 	it 'should execute a link', (done)->
 		e = new Executor
@@ -55,13 +71,14 @@ describe "Executor", ->
 
 
 	it 'should add to Persistent Data if req', (done)->
-		root =
-			links: []
-			_instance: setup :->
-			_bucket: addContent: (name, data) ->
-								data.should.equal 'sample-data'
-								name.should.equal 'sample-name'
-								done()
+		root = 
+			tree :
+				links: []
+				_instance: setup :->
+				_bucket: addContent: (name, data) ->
+									data.should.equal 'sample-data'
+									name.should.equal 'sample-name'
+									done()
 		
 		e  = new Executor root
 		e._setupPersistentBucket()
@@ -69,7 +86,7 @@ describe "Executor", ->
 
 	it 'should not add to Persistent Data',->
 		called = 0
-		root = 
+		root = tree:
 			_bucket: addContent: -> called++
 			_instance: setup: ->
 		e  = new Executor root
