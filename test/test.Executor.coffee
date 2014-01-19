@@ -29,7 +29,7 @@ describe "Executor", ->
 		e._setupCommonParams('aa').should.equal 'aa'
 
 
-	it 'should set rCount, persistent bucket and default callback', ->
+	it 'should set [rCount] [perBucket] and default [onResponse] callback', ->
 		e = new Executor
 		node = _instance: setup : (a,b,c)-> {a,b,c}
 		e.rCount = 'rCount-override'
