@@ -1,16 +1,16 @@
-class RecursiveCaller
+class TreeBFS
 	constructor: (@tree) ->
 		@count = 0
 
-	_recursiveCall: (node) ->
+	_recursiveCall: (node, response) ->
 		@count++
-		@onEach.call @ref, node, @args if @onEach
-		if @onTrue.call @ref, node, @args
+		response = @onEach.call @ref, node, response
+		if response isnt false and response isnt undefined
 			for link in node.links 
-				@_recursiveCall link
+				@_recursiveCall link, response
 
-	execute: (@ref, @args, @onEach, @onTrue = -> true) ->
+	execute: (@ref, @onEach = -> true) ->
 		@_recursiveCall @tree
 		@count
 
-module.exports = RecursiveCaller
+module.exports = TreeBFS

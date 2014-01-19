@@ -20,7 +20,7 @@ describe "RecursiveCaller", ->
 		base = name: '*'
 		str = ""
 		r = new RecursiveCaller root
-		r.execute(base, null, -> str+= @name )
+		r.execute(base, -> str+= @name)
 		str.should.equal '*******'
 
 
@@ -31,7 +31,7 @@ describe "RecursiveCaller", ->
 	it 'should iterate over the complete tree', ->
 		count = 0
 		r = new RecursiveCaller root
-		r.execute null, null, ->count++
+		r.execute {}, ->count++
 		count.should.equal r.count
 
 
