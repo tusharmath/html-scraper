@@ -9,11 +9,12 @@ class NodeOperation
 		node._bucket.addContent data
 
 
+	#Needs to be called from outside
 	setExecutorParams: (node, executor) ->
 		node._instance.setup(
 			executor.rCount,
 			executor.perstBucket,
-			(d,n)=> execuotr._onResponse d,n
+			(d,n)=> executor._onResponse d,n
 		)
 
 module.exports = NodeOperation
