@@ -1,12 +1,16 @@
 {
-  "name": "HTML-Scraper",
-  "version": "0.0.0",
-  "author": {
-    "name": "Tushar Mathur",
-    "email": "tusharmath@gmail.com",
-    "url": "http://tusharm.com"
-  },
-  "dependencies": {
-    "q": "~1.0.1"
-  }
+    "name": "HTML-Scraper",
+    "version": "0.0.0",
+    "author": {
+        "name": "Tushar Mathur",
+        "email": "tusharmath@gmail.com",
+        "url": "http://tusharm.com"
+    },
+    "dependencies": {
+        "rsvp": "~3.0.6"
+    },
+    "devDependencies": {
+        "coffee-script": "~1.7.1",
+        "should": "~3.3.1"
+    }
 }

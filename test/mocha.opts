@@ -1,3 +1,3 @@
+--compilers coffee:coffee-script/register
 --require should
---compilers coffee:coffee-script
 --bail
