@@ -1,7 +1,3 @@
-This module is currently under developement and might not work as expected sometimes :)
----
-
-
 #HTML Scraper
 The scraper has **three** components: `http` → `split` → `extract`, executed in the same order. You make an `http` request to fetch a page, `split` the page into different sections and ultimately `extract` the data from each section using a custom parser.
 
