@@ -1,5 +1,6 @@
 request = require 'request'
 cheerio = require 'cheerio'
+{Chain} = require 'chaining-tatum'
 Q = require 'q'
 proto =
     http: (keyName, data) ->
@@ -16,6 +17,5 @@ proto =
     extract: (callback, data) ->
             callback data
 
-{PipeIt} = require 'pipe-pattern'
-pipe = new PipeIt
-module.exports = -> pipe.create proto
+
+module.exports = -> Chain proto
