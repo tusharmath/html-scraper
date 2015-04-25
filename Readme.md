@@ -14,35 +14,24 @@ Say I  want extract al the information of students who got admitted to the Unive
 2. Page consists of multiple anchor tags containing links of each
 
 
-
-
-
 ```coffeescript
+	# Standard require
+    Scraper = require 'HTML-Scraper'
 	
-	#Pass the url to the initialiser
-	$ = new Scraper url: 'http://tusharm.com'
-	
-	
-	#All the methods are available in the chain object
-	$.chain
-	.http('url') #Pass
-	.split('.intro')
-	.extract('titles', (doc)->
-		anchor = doc.find '.intro h2 a'
-		href: 'http://tusharm.com' + anchor.attr('href')
-		title: anchor.text()
-	).http('href')
-	.split('body')
-	.extract('content', (doc)->
-		data: doc.find('p').text()
-		)
-	
-	
-	$.execute (result) -> console.log result
-```
-
-
-#Running tests
-```sh
-mocha --watch --reporter=min
+    # Specify the key to read urls
+    Scraper().http 'url'
+    .split '.archive a'
+    .extract (doc) ->
+        href: "http://tusharm.com" +  doc.attr 'href'
+        text: doc.html()
+    .http 'href'
+    .extract ($) ->
+        http: $('a:nth-child(2)').attr('href')
+    
+    #Launch with base params
+    .$launch  url: 'http://tusharm.com/projects.html'
+    
+    #Returns a promise
+    .then (val) -> console.log val
+    .done()
 ```
