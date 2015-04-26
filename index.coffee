@@ -18,4 +18,4 @@ proto =
             callback data
 
 
-module.exports = -> Chain proto
+module.exports = -> new Chain proto
