@@ -1,22 +1,21 @@
 {
-	"name": "html-scraper",
-	"version": "0.1.2",
-	"author": {
-		"name": "Tushar Mathur",
-		"email": "tusharmath@gmail.com",
-		"url": "http://tusharm.com"
-	},
-	"dependencies": {
-		"chaining-tatum": "^1.0.1",
-		"cheerio": "*",
-		"mockery": "*",
-		"pipe-pattern": "^1.0.0",
-		"q": "^1.2.0",
-		"request": "*"
-	},
-	"devDependencies": {
-		"mocha": "*",
-		"should": "*"
-	},
-	"repository": "git@github.com:tusharmath/html-scraper.git (push)"
+  "name": "html-scraper",
+  "version": "0.1.2",
+  "author": {
+    "name": "Tushar Mathur",
+    "email": "tusharmath@gmail.com",
+    "url": "http://tusharm.com"
+  },
+  "dependencies": {
+    "chaining-tatum": "^1.0.0",
+    "cheerio": "*",
+    "mockery": "*",
+    "q": "^1.2.0",
+    "request": "*"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "should": "*"
+  },
+  "repository": "git@github.com:tusharmath/html-scraper.git (push)"
 }
