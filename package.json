@@ -11,7 +11,7 @@
     "cheerio": "*",
     "mockery": "*",
     "q": "^1.2.0",
-    "request": "*"
+    "request": "2.87.0"
   },
   "devDependencies": {
     "mocha": "*",
