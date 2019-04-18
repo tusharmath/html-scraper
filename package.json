@@ -14,7 +14,7 @@
     "request": "*"
   },
   "devDependencies": {
-    "mocha": "*",
+    "mocha": ">=6.1.4",
     "should": "*"
   },
   "repository": "git@github.com:tusharmath/html-scraper.git (push)"
